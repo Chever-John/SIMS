@@ -43,7 +43,7 @@ spring:
     # 国际化资源文件路径
     basename: i18n/messages
   profiles: 
-    active: druid
+    active: postgresql
   # 文件上传
   servlet:
      multipart:
@@ -99,7 +99,7 @@ mybatis:
 
 # PageHelper分页插件
 pagehelper: 
-  helperDialect: mysql
+  helperDialect: postgresql
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql 

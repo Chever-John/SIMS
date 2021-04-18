@@ -30,16 +30,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
 	<insert id="insertOperlog" parameterType="SysOperLog">
 		insert into sys_oper_log(title, business_type, method, request_method, operator_type, oper_name, dept_name, oper_url, oper_ip, oper_location, oper_param, json_result, status, error_msg, oper_time)
-        values (#{title}, #{businessType}, #{method}, #{requestMethod}, #{operatorType}, #{operName}, #{deptName}, #{operUrl}, #{operIp}, #{operLocation}, #{operParam}, #{jsonResult}, #{status}, #{errorMsg}, sysdate())
+        values (#{title}, #{businessType}, #{method}, #{requestMethod}, #{operatorType}, #{operName}, #{deptName}, #{operUrl}, #{operIp}, #{operLocation}, #{operParam}, #{jsonResult}, #{status}, #{errorMsg}, now())
 	</insert>
 	
 	<select id="selectOperLogList" parameterType="SysOperLog" resultMap="SysOperLogResult">
 		<include refid="selectOperLogVo"/>
 		<where>
 			<if test="title != null and title != ''">
-				AND title like concat('%', #{title}, '%')
+				AND title like concat('%', #{title}::text, '%')
 			</if>
-			<if test="businessType != null and businessType != ''">
+			<if test="businessType != null">
 				AND business_type = #{businessType}
 			</if>
 			<if test="businessTypes != null and businessTypes.length > 0">
@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				AND status = #{status}
 			</if>
 			<if test="operName != null and operName != ''">
-				AND oper_name like concat('%', #{operName}, '%')
+				AND oper_name like concat('%', #{operName}::text, '%')
 			</if>
 			<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
 				and date_format(oper_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
@@ -64,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by oper_id desc
 	</select>
 	
-	<delete id="deleteOperLogByIds" parameterType="Long">
+	<delete id="deleteOperLogByIds" parameterType="String">
  		delete from sys_oper_log where oper_id in
  		<foreach collection="array" item="operId" open="(" separator="," close=")">
  			#{operId}
