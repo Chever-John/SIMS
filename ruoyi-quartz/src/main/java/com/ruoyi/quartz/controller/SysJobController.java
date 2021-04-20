@@ -33,6 +33,8 @@ import com.ruoyi.quartz.util.CronUtils;
 @RequestMapping("/monitor/job")
 public class SysJobController extends BaseController
 {
+    private String prefix = "monitor/job";
+
     @Autowired
     private ISysJobService jobService;
 
