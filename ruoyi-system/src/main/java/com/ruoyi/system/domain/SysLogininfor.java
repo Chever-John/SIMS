@@ -21,7 +21,7 @@ public class SysLogininfor extends BaseEntity
 
     /** 用户账号 */
     @Excel(name = "用户账号")
-    private String loginName;
+    private String userName;
 
     /** 登录状态 0成功 1失败 */
     @Excel(name = "登录状态", readConverterExp = "0=成功,1=失败")
@@ -62,14 +62,14 @@ public class SysLogininfor extends BaseEntity
         this.infoId = infoId;
     }
 
-    public String getLoginName()
+    public String getUserName()
     {
-        return loginName;
+        return userName;
     }
 
-    public void setLoginName(String loginName)
+    public void setUserName(String userName)
     {
-        this.loginName = loginName;
+        this.userName = userName;
     }
 
     public String getStatus()

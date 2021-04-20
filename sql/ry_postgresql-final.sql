@@ -42,16 +42,16 @@ comment on column sys_dept.update_time is '更新时间';
 -- ----------------------------
 -- 1.1 初始化-部门表数据
 -- ----------------------------
-insert into sys_dept values(100,  0,   '0',          '江苏科技大学',   0, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', now(), '', null);
-insert into sys_dept values(101,  100, '0,100',      '张家港校区', 1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', now(), '', null);
-insert into sys_dept values(102,  100, '0,100',      '苏州理工学院', 2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', now(), '', null);
-insert into sys_dept values(103,  101, '0,100,101',  '研发部门',   1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin',now(), '', null);
-insert into sys_dept values(104,  101, '0,100,101',  '市场部门',   2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin',now(), '', null);
-insert into sys_dept values(105,  101, '0,100,101',  '测试部门',   3, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin',now(), '', null);
-insert into sys_dept values(106,  101, '0,100,101',  '财务部门',   4, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin',now(), '', null);
-insert into sys_dept values(107,  101, '0,100,101',  '运维部门',   5, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin',now(), '', null);
-insert into sys_dept values(108,  102, '0,100,102',  '市场部门',   1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin',now(), '', null);
-insert into sys_dept values(109,  102, '0,100,102',  '财务部门',   2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin',now(), '', null);
+insert into sys_dept values(100,  0,   '0',          '江苏科技大学',   0, '江某人', '15888888888', 'mr8god@hotmail.com', '0', '0', 'admin', now(), '', null);
+insert into sys_dept values(101,  100, '0,100',      '张家港校区', 1, '江某人', '15888888888', 'mr8god@hotmail.com', '0', '0', 'admin', now(), '', null);
+insert into sys_dept values(102,  100, '0,100',      '苏州理工学院', 2, '江某人', '15888888888', 'mr8god@hotmail.com', '0', '0', 'admin', now(), '', null);
+insert into sys_dept values(103,  101, '0,100,101',  '电气与信息工程学院',   1, '江某人', '15888888888', 'mr8god@hotmail.com', '0', '0', 'admin',now(), '', null);
+insert into sys_dept values(104,  101, '0,100,101',  '商学院',   2, '江某人', '15888888888', 'mr8god@hotmail.com', '0', '0', 'admin',now(), '', null);
+insert into sys_dept values(105,  101, '0,100,101',  '公共与教育学院',   3, '江某人', '15888888888', 'mr8god@hotmail.com', '0', '0', 'admin',now(), '', null);
+insert into sys_dept values(106,  101, '0,100,101',  '冶金与材料学院',   4, '江某人', '15888888888', 'mr8god@hotmail.com', '0', '0', 'admin',now(), '', null);
+insert into sys_dept values(107,  101, '0,100,101',  '机械与动力工程学院',   5, '江某人', '15888888888', 'mr8god@hotmail.com', '0', '0', 'admin',now(), '', null);
+insert into sys_dept values(108,  102, '0,100,102',  '电气与信息工程学院',   1, '江某人', '15888888888', 'mr8god@hotmail.com', '0', '0', 'admin',now(), '', null);
+insert into sys_dept values(109,  102, '0,100,102',  '商学院',   2, '江某人', '15888888888', 'mr8god@hotmail.com', '0', '0', 'admin',now(), '', null);
 
 
 
@@ -168,7 +168,9 @@ create table sys_role (
    role_name            VARCHAR(30)          not null,
    role_key             VARCHAR(100)         not null,
    role_sort            INT4                 null,
-   data_scope           CHAR(1)              null,
+   data_scope           CHAR(1)              default '1',
+   menu_check_strictly  BOOLEAN             default '1',
+   dept_check_strictly  BOOLEAN             default '1',
    status               CHAR(1)              null default '0',
    del_flag             CHAR(1)              null default '0',
    create_by            VARCHAR(64)          null default '',
@@ -195,12 +197,12 @@ comment on column sys_role.remark is '备注';
 -- ----------------------------
 -- 初始化-角色信息表数据
 -- ----------------------------
-insert into sys_role values('1', '超级管理员', 'admin',  1, 1, '0', '0', 'admin', now(), '', null, '超级管理员');
-insert into sys_role values('2', '超级暴民江某人',   'angry', 2, 2, '0', '0', 'admin', now(), '', null, '普通角色');
-insert into sys_role values('3', '学生管理科老师',   'stu-man-teacher', 3, 2, '0', '0', 'admin', now(), '', null, '普通角色');
-insert into sys_role values('4', '二级学团老师',   'sed-club-teacher', 4, 2, '0', '0', 'admin', now(), '', null, '普通角色');
-insert into sys_role values('5', '班导师',   'class-tutor', 5, 2, '0', '0', 'admin', now(), '', null, '普通角色');
-insert into sys_role values('6', '学生',   'student', 6, 2, '0', '0', 'admin', now(), '', null, '普通角色');
+insert into sys_role values('1', '超级管理员',        'admin',                1, 1, '1', '1', '0', '0', 'admin', now(), '', null, '超级管理员');
+insert into sys_role values('2', '超级暴民江某人',     'angry',                2, 2, '1', '1', '0', '0', 'admin', now(), '', null, '普通角色');
+insert into sys_role values('3', '学生管理科老师',     'stu-man-teacher',      3, 2, '1', '1', '0', '0', 'admin', now(), '', null, '普通角色');
+insert into sys_role values('4', '二级学团老师',       'sed-club-teacher',     4, 2, '1', '1', '0', '0', 'admin', now(), '', null, '普通角色');
+insert into sys_role values('5', '班导师',            'class-tutor',         5, 2, '1', '1', '0', '0', 'admin', now(), '', null, '普通角色');
+insert into sys_role values('6', '学生',             'student',              6, 2, '1', '1', '0', '0', 'admin', now(), '', null, '普通角色');
 
 
 
@@ -214,7 +216,7 @@ create table sys_menu (
    parent_id            BIGINT               null default 0,
    order_num            INT4                 null default NULL,
    path                  VARCHAR(200)         null default '',
-   component            VARCHAR(20)          null default '',
+   component            VARCHAR(255)          null default '',
    is_frame             INT                  null default 1,
    is_cache             INT                  null default 0,
    menu_type            CHAR(1)              null default '',   
@@ -255,31 +257,31 @@ comment on column sys_menu.remark is '备注';
 -- 初始化-菜单信息表数据
 -- ----------------------------
 -- 一级菜单
-insert into sys_menu values('1', '系统管理', '0', '1', '#',                '',          1, 0,  'M',0, 0,'', 'system',              'admin', now(), '', null, '系统管理目录');
-insert into sys_menu values('2', '系统监控', '0', '2', '#',                '',          1, 0,  'M',0, 0,'', 'monitor',             'admin', now(), '', null, '系统监控目录');
-insert into sys_menu values('3', '系统工具', '0', '3', '#',                '',          1, 0,  'M',0, 0,'', 'tool',                'admin', now(), '', null, '系统工具目录');
-insert into sys_menu values('4', '若依官网', '0', '4', 'http://ruoyi.vip', 'menuBlank', 0, 0,  'C',0, 0,'', 'guide',          'admin', now(), '', null, '若依官网地址');
+insert into sys_menu values('1', '系统管理', '0', '1', 'system',                '',          1, 0,  'M',0, 0,'', 'system',              'admin', now(), '', null, '系统管理目录');
+insert into sys_menu values('2', '系统监控', '0', '2', 'monitor',                '',          1, 0,  'M',0, 0,'', 'monitor',             'admin', now(), '', null, '系统监控目录');
+insert into sys_menu values('3', '系统工具', '0', '3', 'tool',                '',          1, 0,  'M',0, 0,'', 'tool',                'admin', now(), '', null, '系统工具目录');
+insert into sys_menu values('4', '江某人官网', '0', '4', 'http://ruoyi.vip', 'menuBlank', 0, 0,  'C',0, 0,'', 'guide',          'admin', now(), '', null, '江某人官网地址');
 -- 二级菜单
-insert into sys_menu values('100',  '用户管理', '1', '1', '/system/user',          '', 1, 0,  'C', 0, 0, 'system:user:view',         'user',                'admin', now(), '', null, '用户管理菜单');
-insert into sys_menu values('101',  '角色管理', '1', '2', '/system/role',          '', 1, 0,  'C', 0, 0, 'system:role:view',         'peoples',             'admin', now(), '', null, '角色管理菜单');
-insert into sys_menu values('102',  '菜单管理', '1', '3', '/system/menu',          '', 1, 0,  'C', 0, 0, 'system:menu:view',         'tree-table',          'admin', now(), '', null, '菜单管理菜单');
-insert into sys_menu values('103',  '部门管理', '1', '4', '/system/dept',          '', 1, 0,  'C', 0, 0, 'system:dept:view',         'tree',                'admin', now(), '', null, '部门管理菜单');
-insert into sys_menu values('104',  '岗位管理', '1', '5', '/system/post',          '', 1, 0,  'C', 0, 0, 'system:post:view',         'post',                'admin', now(), '', null, '岗位管理菜单');
-insert into sys_menu values('105',  '字典管理', '1', '6', '/system/dict',          '', 1, 0,  'C', 0, 0, 'system:dict:view',         'dict',                'admin', now(), '', null, '字典管理菜单');
-insert into sys_menu values('106',  '参数设置', '1', '7', '/system/config',        '', 1, 0,  'C', 0, 0, 'system:config:view',       'edit',                'admin', now(), '', null, '参数设置菜单');
-insert into sys_menu values('107',  '通知公告', '1', '8', '/system/notice',        '', 1, 0,  'C', 0, 0, 'system:notice:view',       'message',             'admin', now(), '', null, '通知公告菜单');
-insert into sys_menu values('108',  '日志管理', '1', '9', '#',                     '', 1, 0,  'M', 0, 0, '',                         'log',                      'admin', now(), '', null, '日志管理菜单');
-insert into sys_menu values('109',  '在线用户', '2', '1', '/monitor/online',       '', 1, 0,  'C', 0, 0, 'monitor:online:view',      'online',              'admin', now(), '', null, '在线用户菜单');
-insert into sys_menu values('110',  '定时任务', '2', '2', '/monitor/job',          '', 1, 0,  'C', 0, 0, 'monitor:job:view',         'job',                 'admin', now(), '', null, '定时任务菜单');
-insert into sys_menu values('111',  '数据监控', '2', '3', '/monitor/data',         '', 1, 0,  'C', 0, 0, 'monitor:data:view',        'druid',               'admin', now(), '', null, '数据监控菜单');
-insert into sys_menu values('112',  '服务监控', '2', '4', '/monitor/server',       '', 1, 0,  'C', 0, 0, 'monitor:server:view',      'server',              'admin', now(), '', null, '服务监控菜单');
-insert into sys_menu values('113',  '缓存监控', '2', '5', 'monitor/cache/index',   '', 1, 0,  'C', '0',  '0', 'monitor:cache:list',      'redis',                 'admin', now(), '', null, '缓存监控菜单');
-insert into sys_menu values('114',  '表单构建', '3', '1', '/tool/build',           '', 1, 0,  'C', 0, 0, 'tool:build:view',          'build',               'admin', now(), '', null, '表单构建菜单');
-insert into sys_menu values('115',  '代码生成', '3', '2', '/tool/gen',             '', 1, 0,  'C', 0, 0, 'tool:gen:view',            'code',                'admin', now(), '', null, '代码生成菜单');
-insert into sys_menu values('116',  '系统接口', '3', '3', '/tool/swagger',         '', 1, 0,  'C', 0, 0, 'tool:swagger:view',        'swagger',             'admin', now(), '', null, '系统接口菜单');
+insert into sys_menu values('100',  '用户管理', '1', '1', 'user',          'system/user/index', 1, 0,  'C', 0, 0, 'system:user:view',         'user',                'admin', now(), '', null, '用户管理菜单');
+insert into sys_menu values('101',  '角色管理', '1', '2', 'role',          'system/role/index', 1, 0,  'C', 0, 0, 'system:role:view',         'peoples',             'admin', now(), '', null, '角色管理菜单');
+insert into sys_menu values('102',  '菜单管理', '1', '3', 'menu',          'system/menu/index', 1, 0,  'C', 0, 0, 'system:menu:view',         'tree-table',          'admin', now(), '', null, '菜单管理菜单');
+insert into sys_menu values('103',  '部门管理', '1', '4', 'dept',          'system/dept/index', 1, 0,  'C', 0, 0, 'system:dept:view',         'tree',                'admin', now(), '', null, '部门管理菜单');
+insert into sys_menu values('104',  '岗位管理', '1', '5', 'post',          'system/post/index', 1, 0,  'C', 0, 0, 'system:post:view',         'post',                'admin', now(), '', null, '岗位管理菜单');
+insert into sys_menu values('105',  '字典管理', '1', '6', 'dict',          'system/dict/index', 1, 0,  'C', 0, 0, 'system:dict:view',         'dict',                'admin', now(), '', null, '字典管理菜单');
+insert into sys_menu values('106',  '参数设置', '1', '7', 'config',        'system/config/index', 1, 0,  'C', 0, 0, 'system:config:view',       'edit',                'admin', now(), '', null, '参数设置菜单');
+insert into sys_menu values('107',  '通知公告', '1', '8', 'notice',        'system/notice/index', 1, 0,  'C', 0, 0, 'system:notice:view',       'message',             'admin', now(), '', null, '通知公告菜单');
+insert into sys_menu values('108',  '日志管理', '1', '9', 'log',                     '', 1, 0,  'M', 0, 0, '',                         'log',                      'admin', now(), '', null, '日志管理菜单');
+insert into sys_menu values('109',  '在线用户', '2', '1', 'online',       'monitor/online/index', 1, 0,  'C', 0, 0, 'monitor:online:view',      'online',              'admin', now(), '', null, '在线用户菜单');
+insert into sys_menu values('110',  '定时任务', '2', '2', 'job',          'monitor/job/index', 1, 0,  'C', 0, 0, 'monitor:job:view',         'job',                 'admin', now(), '', null, '定时任务菜单');
+insert into sys_menu values('111',  '数据监控', '2', '3', 'druid',         'monitor/druid/index', 1, 0,  'C', 0, 0, 'monitor:data:view',        'druid',               'admin', now(), '', null, '数据监控菜单');
+insert into sys_menu values('112',  '服务监控', '2', '4', 'server',       'monitor/server/index', 1, 0,  'C', 0, 0, 'monitor:server:view',      'server',              'admin', now(), '', null, '服务监控菜单');
+insert into sys_menu values('113',  '缓存监控', '2', '5', 'cache',          'monitor/cache/index', 1, 0,  'C', '0',  '0', 'monitor:cache:list',      'redis',                 'admin', now(), '', null, '缓存监控菜单');
+insert into sys_menu values('114',  '表单构建', '3', '1', 'build',           'tool/build/index', 1, 0,  'C', 0, 0, 'tool:build:view',          'build',               'admin', now(), '', null, '表单构建菜单');
+insert into sys_menu values('115',  '代码生成', '3', '2', 'gen',             'tool/gen/index', 1, 0,  'C', 0, 0, 'tool:gen:view',            'code',                'admin', now(), '', null, '代码生成菜单');
+insert into sys_menu values('116',  '系统接口', '3', '3', 'swagger',        'tool/swagger/index', 1, 0,  'C', 0, 0, 'tool:swagger:view',        'swagger',             'admin', now(), '', null, '系统接口菜单');
 -- 三级菜单
-insert into sys_menu values('500',  '操作日志', '108', '1', '/monitor/operlog',    '', 1, 0,  'C', 0, 0, 'monitor:operlog:view',     'fa fa-address-book',  'admin', now(), '', null, '操作日志菜单');
-insert into sys_menu values('501',  '登录日志', '108', '2', '/monitor/logininfor', '', 1, 0,  'C', 0, 0, 'monitor:logininfor:view',  'fa fa-file-image-o',  'admin', now(), '', null, '登录日志菜单');
+insert into sys_menu values('500',  '操作日志', '108', '1', 'operlog',    'monitor/operlog/index', 1, 0,  'C', 0, 0, 'monitor:operlog:view',     'form',  'admin', now(), '', null, '操作日志菜单');
+insert into sys_menu values('501',  '登录日志', '108', '2', 'logininfor', 'monitor/logininfor/index', 1, 0,  'C', 0, 0, 'monitor:logininfor:view',  'logininfor',  'admin', now(), '', null, '登录日志菜单');
 -- 用户管理按钮
 insert into sys_menu values('1000', '用户查询', '100', '1',  '#', '',  1, 0, 'F', 0, 0, 'system:user:list',        '#', 'admin', now(), '', null, '');
 insert into sys_menu values('1001', '用户新增', '100', '2',  '#', '',  1, 0, 'F', 0, 0, 'system:user:add',         '#', 'admin', now(), '', null, '');
@@ -894,8 +896,8 @@ comment on column sys_notice.remark            is '备注';
 -- ----------------------------
 -- 初始化-公告信息表数据
 -- ----------------------------
-insert into sys_notice values('1', '温馨提醒：2018-07-01 若依新版本发布啦', '2', '新版本内容', '0', 'admin', now(), '', null, '管理员');
-insert into sys_notice values('2', '维护通知：2018-07-01 若依系统凌晨维护', '1', '维护内容',   '0', 'admin', now(), '', null, '管理员');
+insert into sys_notice values('1', '温馨提醒：2018-07-01 江某人新版本发布啦', '2', '新版本内容', '0', 'admin', now(), '', null, '管理员');
+insert into sys_notice values('2', '维护通知：2018-07-01 江某人系统凌晨维护', '1', '维护内容',   '0', 'admin', now(), '', null, '管理员');
 
 
 -- ----------------------------
