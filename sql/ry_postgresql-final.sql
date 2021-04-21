@@ -215,7 +215,7 @@ create table sys_menu (
    menu_name            VARCHAR(50)          not null,
    parent_id            BIGINT               null default 0,
    order_num            INT4                 null default NULL,
-   path                  VARCHAR(200)         null default '',
+   path                 VARCHAR(200)         null default '',
    component            VARCHAR(255)          null default '',
    is_frame             INT                  null default 1,
    is_cache             INT                  null default 0,
